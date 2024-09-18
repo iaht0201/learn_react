@@ -19,7 +19,7 @@ export default function AuthMainLayout({ children }) {
         md={7}
         sx={{
           backgroundImage:
-            'url("https://mui.com/static/images/templates/templates-images/sign-in-side-bg.png")',
+            'url("https://media-cdn-v2.laodong.vn/storage/newsportal/2023/8/26/1233821/Giai-Nhi-1--Nang-Tre.jpg")',
 
           backgroundColor: (t) =>
             t.palette.mode === "light"

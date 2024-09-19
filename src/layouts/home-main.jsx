@@ -9,7 +9,7 @@ export default function HomeMainLayout({ children }) {
       <Grid
         container
         component="main"
-        sx={{ height: "100vh", background: "#fff", maxWidth: "100%" }}
+        sx={{  background: "#fff", maxWidth: "100%" }}
       >
         <Navbar />
         {children}

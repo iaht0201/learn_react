@@ -19,16 +19,10 @@ import {
 
 export function BottomnNavbar() {
   const [anchorEl, setAnchorEl] = useState(null);
-  //   const [selectedItem, setSelectedItem] = useState(null);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
-  //   const handleSelected = (index) => {
-  //     console.log(index);
-  //     setSelectedItem(index);
-  //   };
 
   const handleClose = () => {
     setAnchorEl(null);

@@ -1,140 +1,187 @@
 import { Box, Grid, Icon, Typography } from "@mui/material";
 import { PlayArrow as PlayArrowIcon } from "@mui/icons-material";
+import { heroData } from "./data/data";
+import PropTypes from "prop-types";
+
+function Brand({ title, style }) {
+  return (
+    <Box sx={{ display: "flex", justifyContent: "center", ...style }}>
+      <Typography sx={{ fontSize: "28px", color: "#999", fontWeight: "bold" }}>
+        {title}
+      </Typography>
+    </Box>
+  );
+}
+
+Brand.propTypes = {
+  title: PropTypes.node.isRequired,
+  style: PropTypes.object
+};
 
 export default function HeroLayout() {
   return (
-    <Grid
-      container
+    <Box
       sx={{
         background: "#fff",
+        height: "625px",
         width: "100%",
-        padding: "70px 103px 0 103px",
-        position: "relative", 
+        position: "relative"
       }}
     >
-      {/* Left Section */}
       <Grid
-        item
-        xs={12}
-        md={6}
-        sx={{
-          height: "100%", 
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "flex-start",
-          position: "relative", 
-        }}
+        container
+        sx={{ height: "490px", padding: "70px 103px", position: "relative" }}
       >
-        <Typography
-          sx={{
-            fontSize: "62px",
-            color: "#333",
-            fontWeight: "bold",
-            lineHeight:1
-          }}
+        {/* Left Text Section */}
+        <Grid
+          item
+          xs={12}
+          md={6}
+          sx={{ display: "flex", flexDirection: "column" }}
         >
-          Perfect
-        </Typography>
-        <Typography sx={{ fontSize: "62px", color: "#333", fontWeight: "bold" , lineHeight:1 }}>
-          Harmony:
-        </Typography>
-        <Typography sx={{ fontSize: "62px", color: "#333", fontWeight: "bold" , lineHeight:1 }}>
-          Comfort & Style
-        </Typography>
-        <Typography sx={{ fontSize: "18.5px", color: "#999", fontWeight: "100" }}>
-          Explore furniture that harmoniously combines comfort and style to
-          elevate your home
-        </Typography>
-
-        {/* Buttons */}
-        <Box sx={{ display: "flex", alignItems: "center", marginTop: "20px" }}>
-          <Box
-            sx={{
-              border: "1px solid",
-              padding: "10px 15px",
-              borderRadius: "25px",
-            }}
+          {[heroData.title1, heroData.title2, heroData.title3].map(
+            (title, index) => (
+              <Typography
+                key={index}
+                sx={{
+                  fontSize: "62px",
+                  color: "#333",
+                  fontWeight: "bold",
+                  lineHeight: 1.3
+                }}
+              >
+                {title}
+              </Typography>
+            )
+          )}
+          <Typography
+            sx={{ fontSize: "18.5px", color: "#999", fontWeight: "100" }}
           >
-            <Typography sx={{ fontSize: "14px", color: "#333" }}>
-              Explore Our Offers
-            </Typography>
-          </Box>
+            {heroData.description}
+          </Typography>
           <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              marginLeft: "10px",
-            }}
+            sx={{ display: "flex", marginTop: "20px", alignItems: "center" }}
           >
             <Box
               sx={{
-                display: "flex",
-                padding: "3px",
-                boxShadow: 3,
-                borderRadius: "99px",
-                marginRight: "10px",
+                border: "1px solid",
+                padding: "10px 15px",
+                borderRadius: "25px"
               }}
             >
-              <Icon
-                component={PlayArrowIcon}
-                sx={{
-                  fontSize: "20px",
-                  color: "#000",
-                  fontWeight: "bold",
-                }}
-              />
+              <Typography sx={{ fontSize: "14px", color: "#333" }}>
+                Explore Our Offers
+              </Typography>
             </Box>
-            <Typography
+            <Box
               sx={{
-                fontSize: "14px",
-                color: "#333",
-                height: "100%",
                 display: "flex",
-                alignItems: "center",
+                alignItems: "flex-end",
+                marginLeft: "10px"
               }}
             >
-              Watch Video
+              <Box
+                sx={{
+                  display: "flex",
+                  padding: "3px",
+                  boxShadow: 3,
+                  borderRadius: "99px"
+                }}
+              >
+                <Icon
+                  component={PlayArrowIcon}
+                  sx={{ fontSize: "20px", color: "#000" }}
+                />
+              </Box>
+              <Typography sx={{ fontSize: "14px", color: "#333" }}>
+                Watch Video
+              </Typography>
+            </Box>
+          </Box>
+        </Grid>
+
+        {/* Bottom Introduction Section */}
+        <Box
+          sx={{
+            position: "absolute",
+            background: "#fff",
+            bottom: "-36px",
+            maxWidth: "70vw",
+            height: "72px",
+            borderRadius: "80px",
+            boxShadow: 2,
+            padding: "0 40px",
+            display: "flex",
+            alignItems: "center"
+          }}
+        >
+          {heroData.introduction.map((e, index) => (
+            <Box
+              key={index}
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                marginRight: "40px"
+              }}
+            >
+              <Typography
+                sx={{ fontSize: "14px", color: "#909090", fontWeight: "bold" }}
+              >
+                {e.title}
+              </Typography>
+              <Box sx={{ display: "flex" }}>
+                <Icon
+                  component={e.icon}
+                  sx={{ fontSize: 20, color: "#F5993C", marginRight: "5px" }}
+                />
+                <Typography
+                  sx={{ fontSize: "14px", color: "#999", fontWeight: "500" }}
+                >
+                  {e.description}
+                </Typography>
+              </Box>
+            </Box>
+          ))}
+          <Box
+            sx={{
+              border: "1px solid",
+              padding: "12px",
+              borderRadius: "25px",
+              flexGrow: 1,
+              minWidth: "100px",
+              display: "flex",
+              justifyContent: "center"
+            }}
+          >
+            <Typography sx={{ fontSize: "14px", color: "#333" }}>
+              See more
             </Typography>
           </Box>
         </Box>
-      </Grid>
 
-      {/* Right Section (Image) */}
-      <Grid
-        item
-        xs={12}
-        md={6}
-        sx={{
-          position: "relative",
-          backgroundImage:
-            'url("https://media-cdn-v2.laodong.vn/storage/newsportal/2023/8/26/1233821/Giai-Nhi-1--Nang-Tre.jpg")',
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          height: "415px",
-          borderRadius: "45px",
-        }}
-      >
-      
-       
-      </Grid>
-
-      <Box
+        {/* Right Image Section */}
+        <Grid
+          item
+          xs={12}
+          md={6}
           sx={{
-            position: "absolute",
-            bottom: "-36px", 
-            left: "20px", 
-            backgroundColor: "#fff",
-            padding: "20px",
-            height: "72px" ,
-            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-            borderRadius: "20px",
+            backgroundImage: `url("${heroData.image}")`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            height: "415px",
+            borderRadius: "45px"
           }}
-        >
-          <Typography sx={{ fontSize: "20px", color: "#333" }}>
-            Stacked Box Content sdasdawsd asd asd asd asdasdas đá asd asd asd asd asd ád
-          </Typography>
-        </Box>
-    </Grid>
+        />
+      </Grid>
+
+      {/* Brand Section */}
+      <Box
+        sx={{ display: "flex", justifyContent: "center", marginTop: "80px" }}
+      >
+        {heroData.brand.map((brand, index) => (
+          <Brand key={index} title={brand} style={{ marginLeft: "50px" }} />
+        ))}
+      </Box>
+    </Box>
   );
 }

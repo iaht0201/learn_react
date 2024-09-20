@@ -3,12 +3,14 @@ import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { configureStore } from "@reduxjs/toolkit";
 import autoMergeLevel2 from "redux-persist/es/stateReconciler/autoMergeLevel2";
-import commonReducer from '@/redux/common'
-import authReducer from '@/redux/auth'
+import commonReducer from "@/redux/common";
+import authReducer from "@/redux/slice/auth";
+import productReducer from "../redux/slice/product";
 
 const reducers = combineReducers({
   common: commonReducer,
-  auth: authReducer
+  auth: authReducer,
+  product: productReducer
 });
 
 const persistConfig = {

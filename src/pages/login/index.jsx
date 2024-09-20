@@ -1,16 +1,15 @@
-import { setAuthLogin, setAuthToken, setAuthUser } from "@/redux/auth";
-import { setLoading } from "@/redux/common";
+// import { login } from "@/redux/actions/authen";
+import { login } from "@/redux/actions/authen";
 import SignInTemplates from "@/templates/login";
-import { METHOD_POST, STATUS_200, VITE_REACT_APP_API } from "@/utils/constants";
-import { postPutData } from "@/utils/request";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 
 export default function SignInPages() {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.common.loading);
-
+  const navigate = useNavigate();
   // get/set formik
   const formik = useFormik({
     initialValues: {
@@ -29,23 +28,12 @@ export default function SignInPages() {
   // submit form
   const handleSubmit = () => {
     console.log(12312);
-    dispatch(setLoading(true));
-    postPutData({
-      url: VITE_REACT_APP_API + "/account/login",
-      method: METHOD_POST,
-      payload: {
-        username: formik.values.username,
-        password: formik.values.password
-      },
-      onSuccess: (res) => {
-        if (res && res.statusCode === STATUS_200) {
-          dispatch(setAuthUser());
-          dispatch(setAuthLogin(true));
-          dispatch(setAuthToken());
-        }
-        dispatch(setLoading(false));
-      }
-    });
+    let payload = {
+      username: formik.values.username,
+      password: formik.values.password
+    };
+    console.log(payload);
+    dispatch(login(payload, navigate));
   };
 
   return (

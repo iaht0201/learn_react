@@ -3,90 +3,97 @@ import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
-import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import PropTypes from "prop-types";
 import AuthMainLayout from "@/layouts/auth-main";
+import { Copyright } from "@mui/icons-material";
+import HelpTextComponent from "@/components/help-text";
 
 export default function SignUpTemplates(props) {
-  const { handleSubmit } = props;
+  const { handleSubmit, formik, loading } = props;
   return (
     <AuthMainLayout>
       <Typography component="h1" variant="h5">
         Sign up
       </Typography>
-      <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              autoComplete="given-name"
-              name="firstName"
-              required
-              fullWidth
-              id="firstName"
-              label="First Name"
-              autoFocus
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              fullWidth
-              id="lastName"
-              label="Last Name"
-              name="lastName"
-              autoComplete="family-name"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="new-password"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <FormControlLabel
-              control={<Checkbox value="allowExtraEmails" color="primary" />}
-              label="I want to receive inspiration, marketing promotions and updates via email."
-            />
-          </Grid>
-        </Grid>
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          sx={{ mt: 3, mb: 2 }}
+      <form
+        noValidate
+        onSubmit={(e) => e.preventDefault()}
+        style={{ width: "100%" }}
+      >
+        <HelpTextComponent
+          text={formik.errors.username}
+          isShow={Boolean(formik.touched.username && formik.errors.username)}
         >
-          Sign Up
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            label="Username"
+            name="username"
+            autoComplete="username"
+            autoFocus
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
+            value={formik.values.username}
+          />
+        </HelpTextComponent>
+        <HelpTextComponent
+          text={formik.errors.password}
+          isShow={Boolean(formik.touched.password && formik.errors.password)}
+        >
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"
+            autoComplete="current-password"
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
+            value={formik.values.password}
+          />
+        </HelpTextComponent>
+
+        <FormControlLabel
+          control={<Checkbox value="remember" color="primary" />}
+          label="Remember me"
+        />
+        <Button
+          disableElevation
+          fullWidth
+          disabled={loading}
+          size="large"
+          type="submit"
+          variant="contained"
+          color="primary"
+          sx={{ mt: 3, mb: 2 }}
+          onClick={handleSubmit}
+        >
+          Login
         </Button>
-        <Grid container justifyContent="flex-end">
+        <Grid container>
+          <Grid item xs>
+            <Link href="#" variant="body2">
+              Forgot password?
+            </Link>
+          </Grid>
           <Grid item>
             <Link href="#" variant="body2">
-              Already have an account? Sign in
+              {"Don't have an account? Sign Up"}
             </Link>
           </Grid>
         </Grid>
-      </Box>
+        <Copyright sx={{ mt: 5 }} />
+      </form>
     </AuthMainLayout>
   );
 }
 
 SignUpTemplates.propTypes = {
-  handleSubmit: PropTypes.func
+  handleSubmit: PropTypes.func,
+  formik: PropTypes.object,
+  loading: PropTypes.bool
 };

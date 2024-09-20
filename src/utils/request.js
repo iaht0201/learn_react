@@ -1,6 +1,6 @@
 import { setAlert, setLoading } from "@/redux/common";
 import store from "@/store";
-import Axios from 'axios';
+import Axios from "axios";
 import { METHOD_POST, TOKEN_NAME } from "./constants";
 
 Axios.interceptors.response.use(
@@ -78,6 +78,7 @@ export async function getData({ url, onSuccess }) {
 
 export async function authGet(endpoint) {
   const token = localStorage.getItem(TOKEN_NAME);
+
   const data = await Axios({
     headers: {
       Authorization: `Bearer ${token}`
@@ -207,7 +208,11 @@ export async function authPostFormData(endpoint, method, payload) {
   const body = {};
 
   Object.keys(payload).forEach((key) => {
-    if (payload[key] || typeof payload[key] === 'boolean' || typeof payload[key] === 'number') {
+    if (
+      payload[key] ||
+      typeof payload[key] === "boolean" ||
+      typeof payload[key] === "number"
+    ) {
       body[key] = payload[key];
     }
     return {};
@@ -216,17 +221,17 @@ export async function authPostFormData(endpoint, method, payload) {
   Object.keys(body).forEach((key) => formData.append(key, body[key]));
 
   if (body.imageFile) {
-    formData.append('file', body.imageFile);
+    formData.append("file", body.imageFile);
   }
 
   return Axios({
     headers: {
       Authorization: `Bearer ${token}`,
-      ContentType: 'multipart/form-data',
+      ContentType: "multipart/form-data"
     },
     method,
     url: endpoint,
-    data: formData,
+    data: formData
   });
 }
 
@@ -243,15 +248,14 @@ export async function authPostFileData({ url, method, payload, onSuccess }) {
   }
 }
 
-
 export function getFileName(response) {
-  let filename = '';
-  const disposition = response.headers['content-disposition'];
-  if (disposition && disposition.indexOf('filename') !== -1) {
+  let filename = "";
+  const disposition = response.headers["content-disposition"];
+  if (disposition && disposition.indexOf("filename") !== -1) {
     const filenameRegex = /UTF-8(.*)/;
     const matches = filenameRegex.exec(disposition);
     if (matches != null && matches[1]) {
-      filename = decodeURIComponent(matches[1].replace(/['"]/g, ''));
+      filename = decodeURIComponent(matches[1].replace(/['"]/g, ""));
     }
   }
   return filename;
@@ -261,20 +265,20 @@ export async function downloadFile({ endpoint }) {
   try {
     const res = await Axios({
       headers: {
-        Accept: 'application/json',
-        Authorization: `Bearer ${token}`,
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`
       },
-      responseType: 'blob',
-      method: 'GET',
-      url: endpoint,
+      responseType: "blob",
+      method: "GET",
+      url: endpoint
     });
 
     const fileName = getFileName(res);
     if (res && res.data && res.status === 200) {
       const url = window.URL.createObjectURL(new Blob([res.data]));
-      const link = document.createElement('a');
+      const link = document.createElement("a");
       link.href = url;
-      link.setAttribute('download', fileName || 'template.xlsx');
+      link.setAttribute("download", fileName || "template.xlsx");
       document.body.appendChild(link);
       link.click();
     }
@@ -283,24 +287,24 @@ export async function downloadFile({ endpoint }) {
         setNotification({
           show: true,
           message: `Hãy nhập đủ điều kiện tìm kiếm`,
-          status: 'error',
+          status: "error"
         })
       );
     }
-    if (fileName === '') {
+    if (fileName === "") {
       const resTypeText = await Axios({
         headers: {
-          Accept: 'application/json',
-          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`
         },
-        method: 'GET',
-        url: endpoint,
+        method: "GET",
+        url: endpoint
       });
       store.dispatch(
         setNotification({
           show: true,
           message: resTypeText?.data?.message,
-          status: 'success',
+          status: "success"
         })
       );
     }

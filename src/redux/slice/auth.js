@@ -5,7 +5,8 @@ const namespace = "auth";
 const initialState = {
   user: {},
   isLogin: false,
-  token: null
+  token: null,
+  error: null
 };
 
 const slice = createSlice({
@@ -24,9 +25,14 @@ const slice = createSlice({
       ...state,
       token: action.payload
     }),
+    setError: (state, action) => ({
+      ...state,
+      error: action.payload
+    })
   }
 });
 
-export const { setAuthUser, setAuthLogin, setAuthToken } = slice.actions;
+export const { setAuthUser, setAuthLogin, setAuthToken, setError } =
+  slice.actions;
 
 export default slice.reducer;

@@ -31,7 +31,7 @@ export default function SignInPages() {
     console.log(12312);
     dispatch(setLoading(true));
     postPutData({
-      url: VITE_REACT_APP_API + "/login",
+      url: VITE_REACT_APP_API + "/account/login",
       method: METHOD_POST,
       payload: {
         username: formik.values.username,

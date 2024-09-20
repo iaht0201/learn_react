@@ -66,13 +66,15 @@ export default function ProductsCategory() {
         >
           {selectedCategory.name}
         </Typography>
-        <Box sx={{ display: "flex", flexDirection: "row" }}>
+        <Box sx={{ display: "flex", flexDirection: "row", maxWidth: "80vw" }}>
           {" "}
-          {categories.map((category, index) => (
+          {categories.slice(0, 5).map((category, index) => (
             <Box
               sx={{
                 padding: "10px",
                 cursor: "pointer",
+                borderRight: "3px solid",
+                borderColor: "#fff",
                 // borderRadius: "5px",
                 backgroundColor:
                   category.key === selectedCategory.key ? "#F5993C" : "#F2F2F2",
